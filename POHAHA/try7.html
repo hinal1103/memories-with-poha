@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Poha!</title>
+    <style>
+        body { 
+            text-align: center; 
+            font-family: Arial, sans-serif; 
+            background-color: #ffe6f2; 
+            margin: 0; 
+            padding: 0; 
+            display: flex;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #ffb6c1; /* Light Pink */
+            padding: 20px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar h2 {
+            color: white;
+            text-align: center;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .sidebar ul li:hover {
+            background: #ff99aa;
+            color: white;
+        }
+
+        .container {
+            margin-left: 270px; /* Adjusted for sidebar */
+            margin-top: 50px;
+            padding: 20px;
+            flex-grow: 1;
+        }
+        
+        .btn { 
+            padding: 12px 25px; 
+            background: #ff66a3; 
+            border: none; 
+            cursor: pointer; 
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            border-radius: 8px;
+            transition: 0.3s ease-in-out;
+        }
+        
+        .btn:hover { background: #ff3385; }
+
+        .hidden { display: none; }
+
+        /* Improved Letters Grid */
+        .letters-container { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 25px;  
+            justify-content: center; 
+            margin-top: 30px; 
+            text-align: center; 
+            padding: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        } 
+        
+        .letter { 
+            padding: 20px; 
+            background: white; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            font-size: 22px; 
+            font-weight: bold;
+            width: 150px; 
+            height: 150px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, box-shadow 0.2s; 
+            border: 2px solid #ff99c2;
+        }
+
+        .letter:hover { 
+            transform: scale(1.1); 
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.2); 
+            background: #ffccd5; 
+        }
+
+        /* Popup Styles */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .popup button {
+            margin-top: 10px;
+            padding: 10px;
+            background: #ff66a3;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .popup button:hover { background: #ff3385; }
+    </style>
+    
+    <style>
+        body {
+            background: linear-gradient(to bottom, #ffe6f2, #ffb6c1);
+            text-align: center;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #fff;
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .memory-container {
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .memory-row {
+            display: flex;
+            white-space: nowrap;
+         
+        }
+        .memory-row img {
+            width: 300px;
+            height: 200px;
+            border: 5px solid white;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+            transition: transform 0.8s;
+        }
+
+
+        .memory-row img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Animation */
+        @keyframes scrollRightToLeft {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-50%); }
+        }
+
+        @keyframes scrollLeftToRight {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(50%); }
+        }
+
+        .row1 { animation: scrollRightToLeft 50s linear infinite; }
+        .row2 { animation: scrollLeftToRight 50s linear infinite; }
+        .row3 { animation: scrollRightToLeft 50s linear infinite; }
+    </style>
+
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>🎂 Poha's Bday 🎉</h2>
+        <ul>
+            <li onclick="showPage(1)">Home 🏠</li>
+            <li onclick="showPage(2)">18 Letters 💌</li>
+            <li onclick="showPage(3)">Memories 📸</li>
+            <li onclick="showPage(4)">Playlist 🎶</li>
+            <li onclick="showPage(5)">Surprise ✨</li>
+        </ul>
+    </div>
+
+    <!-- PAGE 1 - Birthday Wish -->
+    <div class="container" id="page1">
+        <h1>🎉 Happy Birthday Poha! 🎂</h1>
+        <p>Wishing you all the happiness in the world!</p>
+        <button class="btn" onclick="showPage(2)">Next</button>
+    </div>
+
+    <!-- PAGE 2 - 18 Letters -->
+    <div class="container hidden" id="page2">
+        <h2>💌 18 Letters for You</h2>
+        <p>Click each envelope to reveal a special message! 💖</p>
+        
+        <div class="letters-container" id="lettersContainer">
+            <!-- Letters will be generated dynamically here -->
+        </div>
+    </div>
+
+    <!-- Popup Overlay -->
+    <div class="popup-overlay" id="popupOverlay" onclick="closePopup()"></div>
+
+    <!-- Popup Box -->
+    <div class="popup" id="popup">
+        <p id="popupMessage"></p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+
+<!-- PAGE 3 - Memory Lane -->
+<div class="container hidden" id="page3">
+    <h1>✨ Memory Lane ✨</h1>
+
+    <div class="memory-container">
+
+        <div class="memory-row row1">
+          
+      
+            <img src="me and her/IMG-20250321-WA0131.jpg" alt="Memory 10">
+            <img src="me and her/IMG-20250321-WA0129.jpg" alt="Memory 71">
+            <img src="me and her/IMG-20250321-WA0142.jpg" alt="Memory 81">
+            <img src="me and her/IMG-20250321-WA0070.jpg" alt="Memory 6">
+            <img src="me and her/IMG-20250321-WA0130.jpg" alt="Memory 7">
+            <img src="me and her/IMG-20250321-WA0127.jpg" alt="Memory 91">
+            <img src="me and her/IMG-20250321-WA0125.jpg" alt="Memory 121">
+            <img src="me and her/IMG-20250321-WA0131.jpg" alt="Memory 141">
+            <img src="me and her/IMG-20250321-WA0128.jpg" alt="Memory 151">
+       </div>
+
+        <div class="memory-row row2">
+            <img src="me and her/IMG-20250321-WA0126.jpg" alt="Memory 8">
+            <img src="me and her/IMG-20250321-WA0133.jpg" alt="Memory 9">
+            <img src="me and her/IMG-20250321-WA0025.jpg" alt="Memory 2">
+            <img src="me and her/IMG-20250321-WA0125.jpg" alt="Memory 3">
+            <img src="me and her/IMG-20250321-WA0015.jpg" alt="Memory 4">
+             <img src="me and her/IMG-20250321-WA0132.jpg" alt="Memory 21">
+            <img src="me and her/IMG-20250321-WA0138.jpg" alt="Memory 31">
+            <img src="me and her/IMG-20250321-WA0134.jpg" alt="Memory 41">
+            <img src="me and her/IMG-20250321-WA0135.jpg" alt="Memory 5">
+          
+        </div>
+
+   
+        <div class="memory-row row3">
+            <img src="me and her/IMG-20250321-WA0144.jpg" alt="Memory 51">
+            <img src="me and her/IMG-20250321-WA0145.jpg" alt="Memory 1">
+            <img src="me and her/IMG-20250321-WA0138.jpg" alt="Memory 11">
+            <img src="me and her/IMG-20250321-WA0072.jpg" alt="Memory 12">
+            <img src="me and her/IMG-20250321-WA0071.jpg" alt="Memory 13">
+            <img src="me and her/IMG-20250321-WA0136.jpg" alt="Memory 14">
+            <img src="me and her/IMG-20250321-WA0141.jpg" alt="Memory 15">
+            <img src="me and her/IMG-20250321-WA0155.jpg" alt="Memory 112">
+            <img src="me and her/IMG-20250321-WA0154.jpg" alt="Memory 131"> 
+           
+           </div> 
+        </div>
+    </div>
+
+    <script>
+        function showPage(page) {
+            document.getElementById("page1").classList.add("hidden");
+            document.getElementById("page2").classList.add("hidden");
+            document.getElementById("page3").classList.add("hidden");
+            if (page === 4 || page === 5) {
+                alert("This page is under construction! 🚧"); // Placeholder for future pages
+                return;
+            }
+
+            document.getElementById("page" + page).classList.remove("hidden");
+        }
+
+        const letters = [
+            "You are the most wonderful person! 💖",
+            "Your kindness lights up my life! ✨",
+            "Thank you for always being there for me! 🥰",
+            "You make the world a better place! 🌎",
+            "I’m lucky to have you as my best friend! 🍀",
+            "You are strong, brave, and inspiring! 💪",
+            "Your laughter is my favorite sound! 😂",
+            "Every moment with you is special! 💫",
+            "Your smile brightens my day! 😄",
+            "You deserve all the happiness in the world! 🎉",
+            "You are beautiful inside and out! 💕",
+            "I appreciate you more than words can say! 📝",
+            "You make my life so much better! 🌟",
+            "You are the definition of an amazing friend! 🤗",
+            "You bring so much joy to my life! 🎶",
+            "I can always count on you! 🤝",
+            "Thank you for being YOU! ❤️",
+            "I love you so much, bestie! 🥺💕"
+        ];
+
+        function showLetter(index) {
+            let popupMessage = document.getElementById("popupMessage");
+            let popup = document.getElementById("popup");
+            let popupOverlay = document.getElementById("popupOverlay");
+
+            popupMessage.textContent = letters[index - 1];
+            popup.style.display = "block";
+            popupOverlay.style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+            document.getElementById("popupOverlay").style.display = "none";
+        }
+
+        // Dynamically generate 18 letter boxes
+        window.onload = function() {
+            let container = document.getElementById("lettersContainer");
+            for (let i = 1; i <= 18; i++) {
+                let letterDiv = document.createElement("div");
+                letterDiv.className = "letter";
+                letterDiv.textContent = "Letter " + i + " 💌";
+                letterDiv.onclick = function() { showLetter(i); };
+                container.appendChild(letterDiv);
+            }
+        };
+    </script>
+
+</body>
+</html>
